@@ -9,11 +9,18 @@
     "@elysiajs/cors": "^1.4.1",
     "@elysiajs/jwt": "^1.4.1",
     "@neondatabase/serverless": "^1.0.2",
+    "dotenv": "^17.3.1",
     "drizzle-orm": "^0.45.1",
     "elysia": "latest"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^25.5.0",
+    "bun-types": "latest",
+    "drizzle-kit": "^0.31.9",
+    "jsonwebtoken": "^9.0.3",
+    "tsx": "^4.21.0",
+    "vitest": "^4.1.0"
   },
   "module": "src/index.js"
 }
