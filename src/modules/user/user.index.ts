@@ -1,6 +1,6 @@
 import { Elysia, t } from 'elysia';
 import { UserService } from './user.service';
-import { updateUserSchema } from './user.model';
+import { updateUserSchema } from '../../schema/user.model';
 import { jwt } from '@elysiajs/jwt';
 
 export const userRoutes = new Elysia({ prefix: '/user' })  //route group created with prefix /user

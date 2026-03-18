@@ -1,5 +1,5 @@
 import { db } from '../../utils/db';
-import { users } from '../auth/auth.model'; 
+import { users } from '../../schema/auth.model'; 
 import { eq } from 'drizzle-orm';
 
 export const UserService = {

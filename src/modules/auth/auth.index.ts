@@ -1,6 +1,6 @@
 import { Elysia, t } from 'elysia';
 import { AuthService } from './auth.service';
-import { registerSchema, loginSchema } from './auth.model';
+import { registerSchema, loginSchema } from '../../schema/auth.model';
 import { jwt } from '@elysiajs/jwt';
 
 export const authRoutes = new Elysia({ prefix: '/auth' })

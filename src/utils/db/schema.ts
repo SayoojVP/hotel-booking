@@ -1,16 +1,13 @@
-import { pgTable, serial, varchar, timestamp, uniqueIndex } from 'drizzle-orm/pg-core';
+import * as auth from '../../schema/auth.model';
+import * as hotel from '../../schema/hotel.model';
+import * as user from '../../schema/user.model';
 
-export const users = pgTable(
-  'users',
-  {
-    id: serial('id').primaryKey(),
-    name: varchar('name', { length: 120 }).notNull(),
-    email: varchar('email', { length: 255 }).notNull(),
-    password: varchar('password', { length: 255 }).notNull(),
-    createdAt: timestamp('created_at').defaultNow().notNull(),
-    updatedAt: timestamp('updated_at').defaultNow().notNull(),
-  },
-  (table) => ({
-    usersEmailUnique: uniqueIndex('users_email_unique').on(table.email),
-  })
-);
+export * from '../../schema/auth.model';
+export * from '../../schema/hotel.model';
+export * from '../../schema/user.model';
+
+export const schema = {
+    ...auth,
+    ...hotel,
+    ...user
+};

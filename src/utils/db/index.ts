@@ -1,7 +1,7 @@
 // src/utils/db/index.ts
 import { neon } from '@neondatabase/serverless';
 import { drizzle } from 'drizzle-orm/neon-http';
-import * as schema from '../../modules/auth/auth.model'; // Ensure this points to your re-exported schema
+import * as schema from './schema';
 
 const connectionString = process.env.DATABASE_URL;
 
