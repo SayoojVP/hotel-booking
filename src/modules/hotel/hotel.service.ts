@@ -20,5 +20,13 @@ export const HotelService = {
             where: eq(hotels.id, id),
             with: { rooms: true }
         });
-    }
+    },
+
+    async addRoom(hotelId: number, roomData: any) {
+    const [newRoom] = await db.insert(rooms).values({
+        ...roomData,
+        hotelId
+    }).returning();
+    return newRoom;
+}
 };
