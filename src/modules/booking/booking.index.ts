@@ -15,9 +15,15 @@ export const bookingRoutes = new Elysia({ prefix: '/bookings' })
         return await BookingService.getUserBookings(user.id as number);
     })
 
-    // Create a new booking
     .post('/', async ({ body, user, set }) => {
-        if (!user) return { error: "Please login to book" };
+    if (!user) return { error: "Please login to book" };
 
+    try {
         return await BookingService.create(body, user.id as number);
-    });
+    } catch (error: any) {
+        set.status = 400; 
+        return { error: error.message };
+    }
+}, {
+    body: createBookingSchema
+});
