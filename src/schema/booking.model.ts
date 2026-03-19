@@ -18,5 +18,4 @@ export const createBookingSchema = t.Object({
     roomId: t.Number(),
     checkIn: t.String(),
     checkOut: t.String(),
-    totalPrice: t.Number()
 });
