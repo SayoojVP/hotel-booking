@@ -3,6 +3,7 @@ import { users } from "./auth.model";
 import { rooms } from "./hotel.model";
 import { t} from "elysia";
 
+//Bookings table
 export const bookings = pgTable('bookings', {
   id: serial('id').primaryKey(),
   userId: integer('user_id').references(() => users.id).notNull(),
@@ -14,6 +15,7 @@ export const bookings = pgTable('bookings', {
   createdAt: timestamp('created_at').defaultNow(),
 });
 
+// Validation schema for creating a booking
 export const createBookingSchema = t.Object({
     roomId: t.Number(),
     checkIn: t.String(),

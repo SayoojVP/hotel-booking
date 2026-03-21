@@ -10,6 +10,8 @@ export const authRoutes = new Elysia({ prefix: '/auth' })
             secret: process.env.JWT_SECRET!
         })
     )
+
+    // Registration route
     .post('/register', async ({ body, set }) => {
         try {
             const user = await AuthService.register(body);
@@ -21,8 +23,10 @@ export const authRoutes = new Elysia({ prefix: '/auth' })
             return { error: "User already exists or invalid data" };
         }
     }, {
-        body: registerSchema
+        body: registerSchema  // Validation schema for registration
     })
+
+    // Login route
     .post('/login', async ({ body, jwt, set, cookie: { auth } }) => {
         const user = await AuthService.validateUser(body.email);
         
@@ -33,8 +37,7 @@ export const authRoutes = new Elysia({ prefix: '/auth' })
 
         const token = await jwt.sign({ id: user.id, role: user.role });
         
-        // Optional: Set a cookie or just return the token
         return { message: "Logged in", token };
     }, {
-        body: loginSchema
+        body: loginSchema // Validation schema for login
     });

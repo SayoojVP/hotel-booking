@@ -4,7 +4,7 @@ import { eq, and, gt, lt } from 'drizzle-orm';
 import { rooms } from '../../schema/hotel.model';
 
 export const BookingService = {
-    async create(data: any, userId: number) {
+    async create(data: any, userId: number) {   
 
         const room = await db.query.rooms.findFirst({
             where: eq(rooms.id, data.roomId)
@@ -15,8 +15,8 @@ export const BookingService = {
         const checkIn = new Date(data.checkIn); 
         const checkOut = new Date(data.checkOut);
 
-        const diffTime = Math.abs(checkIn.getTime() - checkOut.getTime());
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        const diffTime = Math.abs(checkIn.getTime() - checkOut.getTime());  
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));   
 
         if (diffDays <= 0) throw new Error("Check-out must be after check-in");
 
@@ -26,7 +26,7 @@ export const BookingService = {
             .from(bookings)
             .where(
                 and(
-                    eq(bookings.roomId, data.roomId),
+                    eq(bookings.roomId, data.roomId),                   // Check for overlapping bookings
                     lt(bookings.checkIn, checkOut.toISOString()), 
                     gt(bookings.checkOut, checkIn.toISOString())  
                 )
@@ -39,7 +39,7 @@ export const BookingService = {
 
         const [newBooking] = await db.insert(bookings).values({
             ...data,
-            userId, 
+            userId,                                                     // Associate booking with the user
             totalPrice
         }).returning();
 
@@ -47,6 +47,6 @@ export const BookingService = {
     },
 
     async getUserBookings(userId: number) {
-        return await db.select().from(bookings).where(eq(bookings.userId, userId));
+        return await db.select().from(bookings).where(eq(bookings.userId, userId));     // Fetch bookings for the logged-in user
     }
 };

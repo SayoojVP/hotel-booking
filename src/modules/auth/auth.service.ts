@@ -18,6 +18,7 @@ export const AuthService = {
         return userWithoutPassword;
     },
 
+    // Validate user by email for login
     async validateUser(email: string) {
         const [user] = await db.select().from(users).where(eq(users.email, email));
         return user;

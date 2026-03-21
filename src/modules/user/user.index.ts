@@ -10,6 +10,8 @@ export const userRoutes = new Elysia({ prefix: '/user' })  //route group created
             secret: process.env.JWT_SECRET!
         })
     )
+
+    // Get user profile
     .get('/profile', async ({ jwt, set, request: { headers } }) => {
         // Simple helper to get token from 'Authorization: Bearer <token>'
         const authHeader = headers.get('authorization');
@@ -29,6 +31,8 @@ export const userRoutes = new Elysia({ prefix: '/user' })  //route group created
         const user = await UserService.getById(payload.id as number);
         return user;
     })
+
+    // Update user profile
     .patch('/profile', async ({ jwt, body, set, request: { headers } }) => {
         const authHeader = headers.get('authorization');
         const token = authHeader?.split(' ')[1];

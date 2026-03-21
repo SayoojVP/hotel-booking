@@ -1,11 +1,12 @@
 import { Elysia } from 'elysia';
 import { BookingService } from './booking.service';
-import { createBookingSchema } from '../../schema/booking.model';
-import { jwt } from '@elysiajs/jwt';        
+import { createBookingSchema } from '../../schema/booking.model';    
 import { authPlugin } from '../../utils/auth-plugin';
 
 export const bookingRoutes = new Elysia({ prefix: '/bookings' })
     .use(authPlugin)
+
+    // Get all bookings for the logged-in user
     .get('/my-bookings', async ({user, set}) => {
         if (!user) {
             set.status = 401;
@@ -15,6 +16,8 @@ export const bookingRoutes = new Elysia({ prefix: '/bookings' })
         return await BookingService.getUserBookings(user.id as number);
     })
 
+
+    // Create a new booking
     .post('/', async ({ body, user, set }) => {
     if (!user) return { error: "Please login to book" };
 
@@ -25,5 +28,5 @@ export const bookingRoutes = new Elysia({ prefix: '/bookings' })
         return { error: error.message };
     }
 }, {
-    body: createBookingSchema
+    body: createBookingSchema   // Validation schema for creating a booking
 });

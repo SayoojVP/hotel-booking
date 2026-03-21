@@ -1,6 +1,7 @@
 import { pgTable, serial, text, varchar, timestamp } from 'drizzle-orm/pg-core';
 import { t } from 'elysia';
 
+//Users table
 export const users = pgTable('users', {
   id: serial('id').primaryKey(),
   name: text('name').notNull(),
@@ -10,6 +11,8 @@ export const users = pgTable('users', {
   createdAt: timestamp('created_at').defaultNow(),
 });
 
+
+//Validation Schema for registration
 export const registerSchema = t.Object({
   name: t.String({ minLength: 2 }),
   email: t.String({ format: 'email' }),
@@ -17,6 +20,7 @@ export const registerSchema = t.Object({
   role: t.Optional(t.Union([t.Literal('GUEST'), t.Literal('OWNER')]))
 });
 
+//Validation Schema for login
 export const loginSchema = t.Object({
   email: t.String({ format: 'email' }),
   password: t.String()
